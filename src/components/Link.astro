@@ -1,0 +1,21 @@
+---
+// lib imports
+import { Icon } from "astro-icon/components";
+
+type Props = {
+  href: string;
+  icon?: {
+    name: string;
+    side: "left" | "right";
+  };
+  className?: string;
+};
+
+const { href, icon, className, ...rest } = Astro.props as Props;
+---
+
+<a href={href} class={className} {...rest}>
+  {icon && icon.side === "left" && icon.name}
+  <slot />
+  {icon && icon.side === "right" && icon.name}
+</a>

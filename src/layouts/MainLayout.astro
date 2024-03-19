@@ -1,0 +1,23 @@
+---
+import MainHead from "@layouts/MainHead.astro";
+import Footer from "@components/Footer.astro";
+import Nav from "@components/Nav.astro";
+
+const { title, description, className } = Astro.props;
+---
+
+<html lang="en">
+  <MainHead {title} {description} />
+  <body class="flex min-h-screen flex-col bg-gray-50">
+    <Nav />
+    <main
+      class:list={[
+        "mx-auto flex max-w-[1200px] grow flex-col items-center justify-center px-2.5 py-20",
+        className,
+      ]}
+    >
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

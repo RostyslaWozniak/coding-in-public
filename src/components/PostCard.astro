@@ -1,0 +1,37 @@
+---
+// lib imports
+import { formatDate, slugify } from "@js/utils";
+import { Image } from "astro:assets";
+// component imports
+import H2 from "@components/ui/H2.astro";
+
+const { post } = Astro.props;
+const { title, description, date, category, author, image } = post.frontmatter;
+---
+
+<div
+  class="space-y-2 overflow-hidden rounded-lg bg-white text-center shadow-md hover:shadow-xl"
+>
+  <a href={post.url}>
+    <Image
+      src={image.src}
+      alt={image.alt}
+      width={400}
+      height={250}
+      quality={80}
+    />
+  </a>
+  <div class="relative max-w-[400px] space-y-2 p-2">
+    <small>
+      <a
+        class="rounded-lg bg-black px-5 pb-1.5 pt-1 text-white"
+        href={`/category/${slugify(category)}/`}>{category}</a
+      >
+    </small>
+    <H2>{title}</H2>
+    <p>
+      by <a class="font-bold" href={`/author/${slugify(author)}/`}>{author}</a>
+      • {formatDate(date)}
+    </p>
+  </div>
+</div>

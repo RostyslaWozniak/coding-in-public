@@ -1,0 +1,35 @@
+---
+// lib imports
+import { Icon } from "astro-icon/components";
+// components import
+import Link from "@components/Link.astro";
+//data imports
+import { navData } from "@data/navData";
+---
+
+<nav aria-label="Primary" class="fixed h-16 w-full bg-white px-2.5 md:px-5">
+  <div class="mx-auto flex h-full max-w-[1200px] items-center justify-between">
+    <a href="/" aria-label="Go home">
+      <Icon name="logomark" width={60} />
+    </a>
+    <ul class="flex items-center gap-10 capitalize">
+      {
+        navData.map(({ name, path }) => (
+          <li>
+            <Link
+              href={path}
+              data-navLink
+              className="aria-[current=page]:text-green-500"
+            >
+              {name}
+            </Link>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</nav>
+
+<script>
+  import "@js/nav.js";
+</script>

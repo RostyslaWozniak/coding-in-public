@@ -1,26 +1,14 @@
 ---
 // component imports
-import PostCard from "@components/PostCard.astro";
-import H1 from "@components/ui/H1.astro";
-import H2 from "@components/ui/H2.astro";
 import MainLayout from "@layouts/MainLayout.astro";
-// utils import
-import { formatBlogPost } from "@js/utils";
+import H1 from "@components/ui/H1.astro";
 import Link from "@components/Link.astro";
-
-const allPosts = await Astro.glob("./blog/*.md");
-const formatedPosts = formatBlogPost(allPosts, {
-  filterOutDrafts: false,
-  filterOutFuturePosts: false,
-  sortByDate: false,
-  limit: 2,
-});
 ---
 
-<MainLayout title={"Home"} description="My Home Page" class="space-y-20">
+<MainLayout title={"About"} description="My About Page">
   <section
     aria-lavel="About Me"
-    class="flex max-w-[1000px] flex-col items-start gap-10 py-20 lg:flex-row lg:items-end lg:gap-20"
+    class="flex max-w-[1000px] flex-col items-start gap-10 lg:flex-row lg:items-end lg:gap-20"
   >
     <img
       src="/images/headshot.jpg"
@@ -38,17 +26,11 @@ const formatedPosts = formatBlogPost(allPosts, {
         est animi quam doloribus maiores quis!
       </p>
       <Link
-        href="/about/"
+        href="mailto:rostik19wozniak@gmail.com"
         className="rounded-lg bg-black px-5 pb-1.5 pt-1 text-white"
       >
-        👋 Hello
+        Contact Me
       </Link>
     </div>
-  </section>
-  <section class="space-y-10 py-10">
-    <H2>New Blog Posts</H2>
-    <ul class="grid grid-cols-1 gap-10 lg:grid-cols-2">
-      {formatedPosts.map((post) => <PostCard {post} />)}
-    </ul>
   </section>
 </MainLayout>

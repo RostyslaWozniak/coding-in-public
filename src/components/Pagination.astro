@@ -1,0 +1,36 @@
+---
+import Link from "@components/Link.astro";
+
+const { prevUrl, nextUrl } = Astro.props;
+---
+
+<nav aria-label="Blog pages" class="flex justify-center gap-10 font-bold">
+  {
+    prevUrl && (
+      <Link
+        className={" rounded-lg border-2 border-black px-5 pb-1.5 pt-1"}
+        href={prevUrl}
+        icon={{
+          name: "←",
+          side: "left",
+        }}
+      >
+        Previous
+      </Link>
+    )
+  }
+  {
+    nextUrl && (
+      <Link
+        href={nextUrl}
+        className="self-center rounded-lg border-2 border-black px-5 pb-1.5 pt-1 "
+        icon={{
+          name: "→",
+          side: "right",
+        }}
+      >
+        Next Page
+      </Link>
+    )
+  }
+</nav>
