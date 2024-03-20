@@ -2,7 +2,7 @@
 // components
 import Link from "@components/Link.astro";
 // lib import
-import { formatBlogPost } from "@js/utils";
+import { formatBlogPost, slugify } from "@js/utils";
 
 const allPosts = await Astro.glob("../pages/blog/*.md");
 const formatedPosts = formatBlogPost(allPosts);
@@ -19,10 +19,21 @@ const processedCategories = allCategories.reduce((acc, category) => {
     [category]: value + 1,
   };
 }, {});
+
+const { showCount } = Astro.props;
 ---
 
-<!-- 
-{allCategories.map(category => (
-    <Link className=" rounded-lg border-2 border-black px-5 pb-1.5 pt-1"}
-        href={`category/${category}`}>{category}</Link>
-))} -->
+<ul class="flex flex-wrap justify-center gap-6">
+  {
+    Object.entries(processedCategories).map(([key, value]) => (
+      <li>
+        <a
+          class="rounded-lg bg-black px-5 pb-1.5 pt-1 text-white"
+          href={`/category/${slugify(key)}`}
+        >
+          {key} {showCount && `(${value})`}
+        </a>
+      </li>
+    ))
+  }
+</ul>

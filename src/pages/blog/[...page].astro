@@ -13,7 +13,7 @@ import { formatBlogPost } from "@js/utils";
 export async function getStaticPaths({ paginate }) {
   const allPosts = await Astro.glob("./*.md");
   const formatedPosts = formatBlogPost(allPosts);
-  return paginate(formatedPosts, { pageSize: 2 });
+  return paginate(formatedPosts, { pageSize: 4 });
 }
 
 const { page } = Astro.props;
@@ -27,8 +27,8 @@ const { page } = Astro.props;
     </ul>
     <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
   </section>
-  <!-- <aside aria-label="Blog Categories">
-    <H2>Blog Categories</H2>
-    <CategoryCloud />
-  </aside> -->
+  <aside aria-label="Blog Categories" class="grid gap-5">
+    <H2>Blog categories</H2>
+    <CategoryCloud showCount={true} />
+  </aside>
 </MainLayout>
