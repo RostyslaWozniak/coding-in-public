@@ -1,0 +1,11 @@
+---
+// utils import
+import { slugify, formatDate } from "@js/utils";
+import PostCard from "./PostCard.astro";
+
+const { relatedPosts } = Astro.props;
+---
+
+<div class="space-y-10">
+  {relatedPosts.map((post) => <PostCard {post} />)}
+</div>

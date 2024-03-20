@@ -1,22 +1,53 @@
 ---
-// import layouts
-import MainLayout from "@layouts/MainLayout.astro";
 // import components
+import CategoryCloud from "@components/CategoryCloud.astro";
+import H2 from "@components/ui/H2.astro";
+import MainLayout from "@layouts/MainLayout.astro";
 import PostHeader from "@components/PostHeader.astro";
+import Prose from "@components/Prose.astro";
+import RelatedPosts from "@components/RelatedPosts.astro";
+// utils import
+import { formatBlogPost } from "@js/utils";
 
 const { frontmatter } = Astro.props;
-
 const { title, description, date, category, author, image } = frontmatter;
+
+const allPosts = await Astro.glob("../pages/blog/*.md");
+const formatedPosts = formatBlogPost(allPosts, {
+  sortByDate: false,
+});
+const relatedPosts = formatedPosts
+  .filter(
+    (post) =>
+      post.frontmatter.category.toLowerCase() === category.toLowerCase() &&
+      post.frontmatter.title !== title,
+  )
+  .slice(0, 3);
 ---
 
 <MainLayout {title} {description}>
   <PostHeader {title} {description} {date} {category} {image} {author} />
-  <div>
-    <div class="space-y-4">
+  <div class="my-10 flex flex-col gap-10 lg:flex-row">
+    <Prose>
       <slot />
-    </div>
-    <div>
-      <!-- sidebar -->
+    </Prose>
+    <!-- sidebar -->
+    <div class="space-y-12">
+      <aside aria-label="Blog categories" class="grid gap-10">
+        <H2>Blog Categories</H2>
+        <CategoryCloud />
+      </aside>
+      {
+        relatedPosts.length > 0 && (
+          <aside
+            aria-label="Related posts"
+            class="flex flex-col items-center gap-10"
+          >
+            <H2>Related Posts</H2>
+            <RelatedPosts {relatedPosts} />
+          </aside>
+        )
+      }
     </div>
   </div>
 </MainLayout>
