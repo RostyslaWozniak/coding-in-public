@@ -28,7 +28,7 @@ const { title, date, category, author, image } = Astro.props;
     class="rounded-lg"
   />
 
-  <p>
+  <p class="ml-10">
     by <a class="font-bold" href={`/author/${slugify(author)}/`}
       >{author} • {formatDate(date)}</a
     >
